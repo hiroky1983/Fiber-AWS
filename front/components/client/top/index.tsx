@@ -1,34 +1,45 @@
 "use client";
 
 import { atom, useAtom, useAtomValue } from "jotai";
-import { Suspense, useEffect } from "react";
+import { atomWithCache } from "jotai-cache";
+import { Suspense } from "react";
 
 export type Message = {
   code: number;
   message: string;
 };
 
-const messageAtom = atom<Message>({
-  code: 0,
-  message: "",
+// const messageAtom = atom<Message>({
+//   code: 0,
+//   message: "",
+// });
+const setMessage = atomWithCache(async (get): Promise<Message> => {
+  const res = await fetch("http://localhost:8080/api/hello");
+  return res.json();
 });
 
-export const TopClient = () => {
-  const [message, setMessage] = useAtom(messageAtom);
+const Message = () => {
+  const [{ message }] = useAtom(setMessage);
 
-  const getHello = async () => {
-    const res = await fetch("http://localhost:8080/api/hello");
-    setMessage(await res.json());
-  };
-  useEffect(() => {
-    getHello();
-  }, []);
+  return <p>{message}</p>;
+};
+
+export const TopClient = () => {
+  // const [message, setMessage] = useAtom(messageAtom);
+
+  // const getHello = async () => {
+  //   const res = await fetch("http://localhost:8080/api/hello");
+  //   setMessage(await res.json());
+  // };
+  // useEffect(() => {
+  //   getHello();
+  // }, []);
 
   return (
     <>
-      <div>index</div>
+      <div>Client</div>
       <Suspense fallback={<div>Loading...</div>}>
-        <p>{message.message}</p>
+        <Message />
       </Suspense>
     </>
   );

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"strings"
 
@@ -28,8 +27,14 @@ func main() {
       fiber.MethodPatch,
   }, ","),
 }))
+
+app.Route("/api", func(router fiber.Router) {
+  router.Get("/hello", func(c *fiber.Ctx) error {
+    return c.JSON(Response{Code: 200, Message: "Hello, World!"})
+  })
+})
+
   app.Get("/api/hello", func(c *fiber.Ctx) error {
-    fmt.Println("Hello, World!")
     return c.JSON(Response{Code: 200, Message: "Hello, World!"})
   })
   log.Fatal(app.Listen(":8080"))

@@ -1,11 +1,36 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"log"
+	"strings"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+)
+
+type Response struct {
+  Code int `json:"code"`
+  Message string `json:"message"`
+}
 
 func main() {
   app := fiber.New()
-  app.Get("/", func(c *fiber.Ctx) error {
-    return c.SendString("Hello, World！")
+  app.Use(cors.New(cors.Config{
+    AllowOrigins: "*",
+    AllowHeaders:  "Origin, Content-Type, Accept",
+    AllowMethods: strings.Join([]string{
+      fiber.MethodGet,
+      fiber.MethodPost,
+      fiber.MethodHead,
+      fiber.MethodPut,
+      fiber.MethodDelete,
+      fiber.MethodPatch,
+  }, ","),
+}))
+  app.Get("/api/hello", func(c *fiber.Ctx) error {
+    fmt.Println("Hello, World!")
+    return c.JSON(Response{Code: 200, Message: "Hello, World!"})
   })
-  app.Listen(":3000")
+  log.Fatal(app.Listen(":8080"))
 }

@@ -44,11 +44,9 @@ func main() {
 
 app.Route("/api", func(router fiber.Router) {
   router.Get("/hello", func(c *fiber.Ctx) error {
-    fmt.Println("=========hello=============")
     return c.JSON(Response{Code: 200, Message: "Hello, World!"})
   })
   router.Get("/user", func(c *fiber.Ctx) error {
-    fmt.Println("========user==============")
     return c.JSON(User{
       FirstName: "John",
       LastName:  "Doe",

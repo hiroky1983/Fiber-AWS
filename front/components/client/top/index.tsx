@@ -33,13 +33,13 @@ export const TopClient = () => {
 
   return (
     <div>
-      <div>Client</div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>⌛️Loading...</div>}>
+        <div>Client</div>
         <Message />
+        <div>{num}</div>
+        <button onClick={hadleClickAddCount}>incriment</button>
+        <button onClick={hundleClickResetCount}>reset</button>
       </Suspense>
-      <div>{num}</div>
-      <button onClick={hadleClickAddCount}>incriment</button>
-      <button onClick={hundleClickResetCount}>reset</button>
     </div>
   );
 };

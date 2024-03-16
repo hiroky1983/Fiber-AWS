@@ -24,7 +24,7 @@ type User = {
 
 export const TopServer = async () => {
   const message = await fetcher({ url: "http://localhost:8080/api/hello" });
-  const user = await fetcher({ url: "http://localhost:8080/api/user" });
+  const user: User = await fetcher({ url: "http://localhost:8080/api/user" });
   return (
     <div>
       <div>Server</div>

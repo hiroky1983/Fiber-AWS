@@ -5,7 +5,7 @@ import { TopServer } from "@/components/server/top";
 export default function Home() {
   return (
     <main className={styles.main}>
-      {/* <TopServer /> */}
+      <TopServer />
       <TopClient />
     </main>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithCache } from "jotai-cache";
 import { Suspense } from "react";
 
@@ -9,14 +9,12 @@ export type Message = {
   message: string;
 };
 
-// const messageAtom = atom<Message>({
-//   code: 0,
-//   message: "",
-// });
 const setMessage = atomWithCache(async (get): Promise<Message> => {
   const res = await fetch("http://localhost:8080/api/hello");
   return res.json();
 });
+
+const count = atom(0);
 
 const Message = () => {
   const [{ message }] = useAtom(setMessage);
@@ -25,22 +23,23 @@ const Message = () => {
 };
 
 export const TopClient = () => {
-  // const [message, setMessage] = useAtom(messageAtom);
-
-  // const getHello = async () => {
-  //   const res = await fetch("http://localhost:8080/api/hello");
-  //   setMessage(await res.json());
-  // };
-  // useEffect(() => {
-  //   getHello();
-  // }, []);
+  const [num, setNum] = useAtom(count);
+  const hadleClickAddCount = () => {
+    setNum(() => num + 1);
+  };
+  const hundleClickResetCount = () => {
+    setNum(() => 0);
+  };
 
   return (
-    <>
+    <div>
       <div>Client</div>
       <Suspense fallback={<div>Loading...</div>}>
         <Message />
       </Suspense>
-    </>
+      <div>{num}</div>
+      <button onClick={hadleClickAddCount}>incriment</button>
+      <button onClick={hundleClickResetCount}>reset</button>
+    </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { atom, useAtom } from "jotai";
 import { atomWithCache } from "jotai-cache";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 export type Message = {
   code: number;

@@ -1,3 +1,5 @@
+import { User } from "@/gen/types";
+
 const fetcher = ({
   url,
   headers,
@@ -12,19 +14,11 @@ const fetcher = ({
     ...(tag ? { next: { tags: [tag] } } : {}),
   }).then((res) => res.json());
 
-type User = {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  age: number;
-  address: string;
-  email: string;
-  phone: string;
-};
-
 export const TopServer = async () => {
   const message = await fetcher({ url: "http://localhost:8080/api/hello" });
   const user: User = await fetcher({ url: "http://localhost:8080/api/user" });
+  console.log(user);
+
   return (
     <div>
       <div>Server</div>
@@ -32,6 +26,7 @@ export const TopServer = async () => {
       <div>
         <h1>{`${user.firstName} ${user.lastName}`}</h1>
         <p>email:{user.email}</p>
+        <p>gender{user.gender === "man" ? "🚹" : "🚺"}</p>
         <p>age:{user.age}</p>
         <p>adress:{user.address}</p>
         <p>phone:{user.phone}</p>

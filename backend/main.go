@@ -1,26 +1,15 @@
 package main
 
 import (
+	types "fiber-aws/struct"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	// "github.com/gofiber/fiber/v2"
 	// "github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-type Response struct {
-  Code int `json:"code"`
-  Message string `json:"message"`
-}
 
-type User struct {
-  FirstName string `json:"firstName"`
-  LastName  string `json:"lastName"`
-  Gender    string `json:"gender"`
-  Age       int    `json:"age"`
-  Address   string `json:"address"`
-  Email     string `json:"email"`
-  Phone     string `json:"phone"`
-}
 
 func main() {
 //   app := fiber.New()
@@ -61,14 +50,14 @@ func main() {
     AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
   }))
   e.GET("/api/hello", func(c echo.Context) error {
-    return c.JSON(200, Response{Code: 200, Message: "Hello, World!"})
+    return c.JSON(200, types.Response{Code: 200, Message: "Hello, World!"})
   })
 
   e.GET("/api/user", func(c echo.Context) error {
-    return c.JSON(200, User{
+    return c.JSON(200, types.User{
       FirstName: "John",
       LastName:  "Doe",
-      Gender:    "man",
+      Gender:    types.GenderMan,
       Age:       31,
       Address:   "New York",
       Email:     "expample@google.com",

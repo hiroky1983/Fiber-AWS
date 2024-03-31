@@ -21,3 +21,7 @@ type User struct {
   Email     string `json:"email"`
   Phone     string `json:"phone"`
 }
+
+func (u User) FullName() string {
+  return u.FirstName + " " + u.LastName
+}

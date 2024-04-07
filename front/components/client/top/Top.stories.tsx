@@ -13,7 +13,7 @@ export const Default: Story = {
   parameters: {
     nextjs: {
       router: {
-        pathname: "/about",
+        pathname: "/",
       },
     },
   },

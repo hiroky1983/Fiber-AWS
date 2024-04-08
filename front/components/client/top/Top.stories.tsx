@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { TopClient } from ".";
+import { TopClient } from "./";
 
 const meta: Meta<typeof TopClient> = {
   component: TopClient,
